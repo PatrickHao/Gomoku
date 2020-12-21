@@ -10,21 +10,11 @@ using System.Windows.Forms;
 
 namespace Gomoku {
     public partial class MainForm : Form {
-        private Board board;
+        private Player player;
 
         public MainForm() {
             InitializeComponent();
-            initGameBoard();
-        }
-
-        private void initGameBoard() {
-            board = new Board();
-            board.OnGameOver += board_OnGameEnd;
-            this.Controls.Add(board);
-            int x = (this.ClientRectangle.Width - board.Width) / 2;
-            int y = (this.ClientRectangle.Height - board.Height) / 2;
-            board.Left = x;
-            board.Top = y;
+            player = new Player(0, 1, board);
         }
 
         private void board_OnGameEnd(object sender, GameOverEventArgs e) {
@@ -32,7 +22,13 @@ namespace Gomoku {
         }
 
         private void btnStartGame_Click(object sender, EventArgs e) {
-            board.startGame();
+            player.startGame();
+        }
+
+        private void board_MouseClick(object sender, MouseEventArgs e) {
+            if (e.Button == MouseButtons.Left) {
+                player.playerAction(e.X, e.Y);
+            }
         }
     }
 }

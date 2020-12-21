@@ -24,7 +24,9 @@ namespace Gomoku {
         /// 使用代码编辑器修改此方法的内容。
         /// </summary>
         private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.btnStartGame = new System.Windows.Forms.Button();
+            this.board = new Gomoku.Board();
             this.SuspendLayout();
             // 
             // btnStartGame
@@ -37,11 +39,21 @@ namespace Gomoku {
             this.btnStartGame.UseVisualStyleBackColor = true;
             this.btnStartGame.Click += new System.EventHandler(this.btnStartGame_Click);
             // 
+            // board
+            // 
+            this.board.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("board.BackgroundImage")));
+            this.board.Location = new System.Drawing.Point(35, 66);
+            this.board.Name = "board";
+            this.board.Size = new System.Drawing.Size(504, 504);
+            this.board.TabIndex = 1;
+            this.board.MouseClick += new System.Windows.Forms.MouseEventHandler(this.board_MouseClick);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 611);
+            this.Controls.Add(this.board);
             this.Controls.Add(this.btnStartGame);
             this.Name = "MainForm";
             this.Text = "MainForm";
@@ -52,6 +64,7 @@ namespace Gomoku {
         #endregion
 
         private System.Windows.Forms.Button btnStartGame;
+        private Board board;
     }
 }
 
