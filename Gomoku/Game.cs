@@ -18,6 +18,8 @@ namespace Gomoku {
         private int lSum;
         private int rSum;
 
+        public int[,] Board { get => board; }
+
         public Game() {
             initBoard();
         }
@@ -25,13 +27,13 @@ namespace Gomoku {
         public void initBoard() {
             for (int i = 0; i < boardSize; i++) {
                 for (int j = 0; j < boardSize; j++) {
-                    board[i, j] = 0;
+                    Board[i, j] = 0;
                 }
             }
         }
 
-        public bool isIndexEmpty(int x, int y) {
-            return board[x, y] == 0;
+        public bool isEmpty(int x, int y) {
+            return Board[x, y] == 0;
         }
 
         public bool isGameOver(int x, int y, int playerColor) {
@@ -40,7 +42,7 @@ namespace Gomoku {
             j = y - 1;
             hSum = vSum = lSum = rSum = 1;
             while (i >= 0 && j >= 0) {
-                if (board[i, j] == playerColor) {
+                if (Board[i, j] == playerColor) {
                     lSum++;
                 } else {
                     break;
@@ -50,7 +52,7 @@ namespace Gomoku {
             }
             j = y - 1;
             while (j >= 0) {
-                if (board[x, j] == playerColor) {
+                if (Board[x, j] == playerColor) {
                     hSum++;
                 } else {
                     break;
@@ -60,7 +62,7 @@ namespace Gomoku {
             i = x + 1;
             j = y - 1;
             while (i < boardSize && j >= 0) {
-                if (board[i, j] == playerColor) {
+                if (Board[i, j] == playerColor) {
                     rSum++;
                 } else {
                     break;
@@ -70,7 +72,7 @@ namespace Gomoku {
             }
             i = x - 1;
             while (i >= 0) {
-                if (board[i, y] == playerColor) {
+                if (Board[i, y] == playerColor) {
                     vSum++;
                 } else {
                     break;
@@ -79,7 +81,7 @@ namespace Gomoku {
             }
             i = x + 1;
             while (i < boardSize) {
-                if (board[i, y] == playerColor) {
+                if (Board[i, y] == playerColor) {
                     vSum++;
                 } else {
                     break;
@@ -89,7 +91,7 @@ namespace Gomoku {
             i = x - 1;
             j = y + 1;
             while (i >= 0 && j < boardSize) {
-                if (board[i, j] == playerColor) {
+                if (Board[i, j] == playerColor) {
                     rSum++;
                 } else {
                     break;
@@ -99,7 +101,7 @@ namespace Gomoku {
             }
             j = y + 1;
             while (j < boardSize) {
-                if (board[x, j] == playerColor) {
+                if (Board[x, j] == playerColor) {
                     hSum++;
                 } else {
                     break;
@@ -109,7 +111,7 @@ namespace Gomoku {
             i = x + 1;
             j = y + 1;
             while (i < boardSize && j < boardSize) {
-                if (board[i, j] == playerColor) {
+                if (Board[i, j] == playerColor) {
                     lSum++;
                 } else {
                     break;
@@ -121,7 +123,7 @@ namespace Gomoku {
         }
 
         public void doMove(int x, int y, int playerColor) {
-            board[x, y] = playerColor;
+            Board[x, y] = playerColor;
             if (isGameOver(x, y, playerColor)) {
                 // to Process
             }
