@@ -10,7 +10,7 @@ namespace Gomoku {
         public string Message { get; set; }
 
         public GameOverEventArgs(int playerColor) {
-            this.PlayerColor = PlayerColor;
+            this.PlayerColor = playerColor;
             this.Message = (PlayerColor == 1 ? "黑棋" : "白棋") + "赢了";
         }
     }

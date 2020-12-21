@@ -50,6 +50,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ChessNumChangeEventArgs.cs" />
+    <Compile Include="Game.cs" />
     <Compile Include="GameOverEventArgs.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
