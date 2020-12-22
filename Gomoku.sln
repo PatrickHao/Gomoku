@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gomoku", "Gomoku\Gomoku.csproj", "{A22AFBF2-4C9D-453D-ADF4-785976F8C495}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{4FB45E3C-C45B-4B92-9223-A78B0BEFF126}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GomoServer", "GomoServer\GomoServer.csproj", "{DB271F6D-1474-4BF8-BCF8-AF8696EEDE57}"
 EndProject
 Global
