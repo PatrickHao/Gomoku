@@ -19,7 +19,7 @@ namespace GomoServer {
         public void Start() {
             serverSocket.Bind(new IPEndPoint(IPAddress.Any, 12321));
             serverSocket.Listen(10);
-            Console.WriteLine("服务器启动");
+            Console.WriteLine("Server Started Successful");
 
             Thread threadAccpt = new Thread(Accept);
             threadAccpt.IsBackground = true;
@@ -30,7 +30,7 @@ namespace GomoServer {
         private void Accept() {
             Socket client = serverSocket.Accept();
             IPEndPoint point = client.RemoteEndPoint as IPEndPoint;
-            Console.WriteLine(point.Address + "[" + point.Port + "]连接成功");
+            Console.WriteLine(point.Address + "[" + point.Port + "] connected");
             clientList.Add(client);
             Thread threadReceive = new Thread(Receive);
             threadReceive.IsBackground = true;
@@ -52,7 +52,7 @@ namespace GomoServer {
                 Broadcast(client, msgStr);
                 Receive(client);
             } catch {
-                Console.WriteLine(point.Address + "[" + point.Port + "]  积极断开");
+                Console.WriteLine(point.Address + "[" + point.Port + "]  disconnected");
                 clientList.Remove(client);
             }
 

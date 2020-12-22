@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -21,28 +22,41 @@ namespace Gomoku {
 
         public Player(int playerID, int playerColor, Board board) {
             this.client = new ClientControl();
+            this.client.Connect("127.0.0.1", 12321);
+            this.client.MessageProcess += message_Process;
             game = new Game();
             this.board = board;
             this.PlayerID = playerID;
             this.PlayerColor = playerColor;
+            //this.client.MessageHandle += board.drawChess;
         }
 
         public int PlayerID { get => playerID; set => playerID = value; }
         public int PlayerColor { get => playerColor; set => playerColor = value; }
 
+        private void message_Process(object sender, MessageProcessEventArgs e) {
+            state = true;
+            board.drawChess(e.Message.Point.X, e.Message.Point.Y, PlayerColor);
+        }
+
         public void playerAction(int x, int y) {
-            if (state) {
+            if (true) {
                 Point p = new Point(0, 0);
                 if (board.getMousePoint(x, y, ref p) && game.isEmpty(p.X, p.Y)) {
                     game.doMove(p.X, p.Y, PlayerColor);
                     board.drawChess(p.X, p.Y, PlayerColor);
-                    if (game.isGameOver(p.X, p.Y, PlayerColor)) {
-                        //to process--state
-
-                        OnGameOver(this, new GameOverEventArgs(PlayerColor));
-                    } else {
-                        //to process
-                    }
+                    //if (game.isGameOver(p.X, p.Y, PlayerColor)) {
+                    //    //to process--state
+                    //    Message message = new Message(PlayerColor, p);
+                    //    string messageStr = JsonConvert.SerializeObject(message);
+                    //    OnGameOver(this, new GameOverEventArgs(PlayerColor));
+                    //} else {
+                    //    //to process
+                    //}
+                    Message message = new Message(PlayerColor, p);
+                    string messageStr = JsonConvert.SerializeObject(message);
+                    client.Send(messageStr);
+                    state = false;
                 }
             }
         }

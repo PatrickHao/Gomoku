@@ -12,9 +12,9 @@ namespace Gomoku {
     public partial class MainForm : Form {
         private Player player;
 
-        public MainForm() {
+        public MainForm(int playerColor) {
             InitializeComponent();
-            player = new Player(0, 1, board);
+            player = new Player(0, playerColor, board);
         }
 
         private void board_OnGameEnd(object sender, GameOverEventArgs e) {
