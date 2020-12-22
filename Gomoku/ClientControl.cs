@@ -36,7 +36,7 @@ namespace Gomoku {
                 int msgLen = clientSocket.Receive(msg);
                 //process
                 string messageStr = Encoding.UTF8.GetString(msg, 0, msgLen);
-                Message message = (Message)JsonConvert.DeserializeObject(messageStr);
+                Message message = (Message)JsonConvert.DeserializeObject(messageStr, typeof(Message));
                 MessageProcess(this, new MessageProcessEventArgs(message));
                 Receive();
             } catch {

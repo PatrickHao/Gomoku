@@ -5,6 +5,7 @@ namespace GomoServer {
         static void Main(string[] args) {
             ServerControl serverControl = new ServerControl();
             serverControl.Start();
+            Console.ReadKey();
         }
     }
 }

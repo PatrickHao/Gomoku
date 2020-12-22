@@ -15,6 +15,7 @@ namespace Gomoku {
         public MainForm(int playerColor) {
             InitializeComponent();
             player = new Player(0, playerColor, board);
+            player.OnGameOver += board_OnGameEnd;
         }
 
         private void board_OnGameEnd(object sender, GameOverEventArgs e) {
