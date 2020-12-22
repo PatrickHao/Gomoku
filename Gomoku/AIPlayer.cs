@@ -181,6 +181,7 @@ namespace Gomoku {
                 i++;
                 j++;
             }
+            return situationType.BlockedFour;
         }
 
 
