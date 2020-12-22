@@ -10,6 +10,7 @@ namespace Gomoku {
     /// 玩家类
     /// </summary>
     public class Player {
+        private ClientControl client;
         private Game game;
         private Board board;
         private int playerID;
@@ -19,6 +20,7 @@ namespace Gomoku {
         public event EventHandler<GameOverEventArgs> OnGameOver;
 
         public Player(int playerID, int playerColor, Board board) {
+            this.client = new ClientControl();
             game = new Game();
             this.board = board;
             this.PlayerID = playerID;
@@ -36,6 +38,7 @@ namespace Gomoku {
                     board.drawChess(p.X, p.Y, PlayerColor);
                     if (game.isGameOver(p.X, p.Y, PlayerColor)) {
                         //to process--state
+
                         OnGameOver(this, new GameOverEventArgs(PlayerColor));
                     } else {
                         //to process
