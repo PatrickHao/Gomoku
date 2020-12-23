@@ -10,12 +10,15 @@ using System.Windows.Forms;
 
 namespace Gomoku {
     public partial class MainForm : Form {
-        private Player player;
+        private PlayerOnline player;
 
-        public MainForm(int playerColor) {
+        public MainForm(int roomID, int playerColor) {
             InitializeComponent();
-            player = new Player(0, playerColor, board);
+            player = new PlayerOnline(roomID, playerColor, true, board);
             player.OnGameOver += board_OnGameEnd;
+            pBoxColor.SizeMode = PictureBoxSizeMode.Zoom;
+            pBoxColor.Image = playerColor == 1 ? Gomoku.Properties.Resources.blackChess : Gomoku.Properties.Resources.whiteChess;
+            labelRoomID.Text = "房间号:  " + roomID.ToString() + "  你的棋子";
         }
 
         private void board_OnGameEnd(object sender, GameOverEventArgs e) {
