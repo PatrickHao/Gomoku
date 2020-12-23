@@ -14,6 +14,7 @@ namespace Gomoku {
         public StartForm() {
             InitializeComponent();
             refreshList();
+            listBoxRoom.SelectedIndex = 0;
         }
 
         private void refreshList() {
@@ -37,7 +38,13 @@ namespace Gomoku {
             int roomID = int.Parse(listBoxRoom.SelectedItem.ToString());
             int playerColor = cbPlayerColor.SelectedIndex + 1;
             MainForm m = new MainForm(roomID, playerColor);
+            m.FormClosing += show_Form;
             m.Show();
+            this.Hide();
+        }
+
+        private void show_Form(object sender, FormClosingEventArgs e) {
+            this.Show();
         }
     }
 }

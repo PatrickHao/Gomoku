@@ -56,7 +56,7 @@ namespace GomoServer {
 
                 Receive(client);
             } catch {
-                Console.WriteLine(point.Address + "[" + point.Port + "]  disconnected");
+                Console.WriteLine(point.Address + "[" + point.Port + "] disconnected");
                 clientList.Remove(client);
             }
 
