@@ -13,7 +13,6 @@ namespace Gomoku {
     public class PlayerOnline : Player {
         private ClientControl client;
         private int roomID;
-        public event EventHandler<GameOverEventArgs> OnGameOver;
 
         public PlayerOnline(int roomID, int playerColor, Board board) : base(playerColor, board) {
             this.client = new ClientControl();
@@ -32,16 +31,20 @@ namespace Gomoku {
         public int RoomID { get => roomID; set => roomID = value; }
 
         private void message_Process1(object sender, MessageProcessEventArgs e) {
+            board.drawChess(e.Message.Point.X, e.Message.Point.Y, 3 - PlayerColor);
             if (e.Message.IsGameOver) {
-                OnGameOver(this, new GameOverEventArgs(3 - playerColor));
+                gameOver(e.Message.PlayerColor);
                 isGameOver = true;
             }
             state = true;
-            board.drawChess(e.Message.Point.X, e.Message.Point.Y, 3 - PlayerColor);
         }
 
         private void message_Process2(object sender, MessageProcessEventArgs e) {
             board.drawChess(e.Message.Point.X, e.Message.Point.Y, e.Message.PlayerColor);
+            if (e.Message.IsGameOver) {
+                gameOver(e.Message.PlayerColor);
+                isGameOver = true;
+            }
         }
 
         public override void playerAction(int x, int y) {
@@ -58,13 +61,13 @@ namespace Gomoku {
                     client.Send(messageStr);
                     state = false;
                     if (isGameOver) {
-                        OnGameOver(this, new GameOverEventArgs(playerColor));
+                        gameOver(PlayerColor);
                     }
                 }
             }
         }
 
-        public void startGame() {
+        public override void startGame() {
             game.initBoard();
             board.initBoard();
         }

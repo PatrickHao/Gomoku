@@ -13,6 +13,8 @@ namespace Gomoku {
         protected bool state = true;
         protected bool isGameOver = false;
 
+        public event EventHandler<GameOverEventArgs> OnGameOver;
+
         public int PlayerColor { get => playerColor; set => playerColor = value; }
 
         public Player(int playerColor, Board board) {
@@ -21,6 +23,12 @@ namespace Gomoku {
             this.board = board;
         }
 
+        protected void gameOver(int playerColor) {
+            OnGameOver(this, new GameOverEventArgs(playerColor));
+        }
+
         public abstract void playerAction(int x, int y);
+
+        public abstract void startGame();
     }
 }

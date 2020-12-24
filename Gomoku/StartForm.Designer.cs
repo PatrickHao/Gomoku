@@ -31,13 +31,15 @@ namespace Gomoku {
             this.listBoxRoom = new System.Windows.Forms.ListBox();
             this.btnRoomAdd = new System.Windows.Forms.Button();
             this.tbRoomID = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.cbGameMode = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(271, 61);
+            this.btnStart.Location = new System.Drawing.Point(102, 348);
             this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(226, 214);
+            this.btnStart.Size = new System.Drawing.Size(86, 42);
             this.btnStart.TabIndex = 0;
             this.btnStart.Text = "开始";
             this.btnStart.UseVisualStyleBackColor = true;
@@ -54,12 +56,11 @@ namespace Gomoku {
             this.cbPlayerColor.Name = "cbPlayerColor";
             this.cbPlayerColor.Size = new System.Drawing.Size(121, 20);
             this.cbPlayerColor.TabIndex = 1;
-            this.cbPlayerColor.Text = "黑子";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(67, 113);
+            this.label1.Location = new System.Drawing.Point(67, 146);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(29, 12);
             this.label1.TabIndex = 2;
@@ -78,16 +79,16 @@ namespace Gomoku {
             // 
             this.listBoxRoom.FormattingEnabled = true;
             this.listBoxRoom.ItemHeight = 12;
-            this.listBoxRoom.Location = new System.Drawing.Point(102, 113);
+            this.listBoxRoom.Location = new System.Drawing.Point(102, 146);
             this.listBoxRoom.Name = "listBoxRoom";
             this.listBoxRoom.Size = new System.Drawing.Size(121, 88);
             this.listBoxRoom.TabIndex = 4;
             // 
             // btnRoomAdd
             // 
-            this.btnRoomAdd.Location = new System.Drawing.Point(146, 221);
+            this.btnRoomAdd.Location = new System.Drawing.Point(154, 256);
             this.btnRoomAdd.Name = "btnRoomAdd";
-            this.btnRoomAdd.Size = new System.Drawing.Size(86, 34);
+            this.btnRoomAdd.Size = new System.Drawing.Size(84, 27);
             this.btnRoomAdd.TabIndex = 5;
             this.btnRoomAdd.Text = "添加房间";
             this.btnRoomAdd.UseVisualStyleBackColor = true;
@@ -95,16 +96,38 @@ namespace Gomoku {
             // 
             // tbRoomID
             // 
-            this.tbRoomID.Location = new System.Drawing.Point(40, 229);
+            this.tbRoomID.Location = new System.Drawing.Point(48, 260);
             this.tbRoomID.Name = "tbRoomID";
             this.tbRoomID.Size = new System.Drawing.Size(100, 21);
             this.tbRoomID.TabIndex = 6;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(67, 103);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(29, 12);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "模式";
+            // 
+            // cbGameMode
+            // 
+            this.cbGameMode.FormattingEnabled = true;
+            this.cbGameMode.Items.AddRange(new object[] {
+            "人人",
+            "人机"});
+            this.cbGameMode.Location = new System.Drawing.Point(102, 100);
+            this.cbGameMode.Name = "cbGameMode";
+            this.cbGameMode.Size = new System.Drawing.Size(121, 20);
+            this.cbGameMode.TabIndex = 7;
             // 
             // StartForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(522, 326);
+            this.ClientSize = new System.Drawing.Size(316, 456);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.cbGameMode);
             this.Controls.Add(this.tbRoomID);
             this.Controls.Add(this.btnRoomAdd);
             this.Controls.Add(this.listBoxRoom);
@@ -129,5 +152,7 @@ namespace Gomoku {
         private System.Windows.Forms.ListBox listBoxRoom;
         private System.Windows.Forms.Button btnRoomAdd;
         private System.Windows.Forms.TextBox tbRoomID;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox cbGameMode;
     }
 }

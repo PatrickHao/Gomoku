@@ -15,7 +15,10 @@ namespace Gomoku {
         public StartForm() {
             InitializeComponent();
             refreshList();
+            cbPlayerColor.SelectedIndex = 0;
+            cbGameMode.SelectedIndex = 0;
             listBoxRoom.SelectedIndex = 0;
+
         }
 
         private void refreshList() {
@@ -36,15 +39,22 @@ namespace Gomoku {
         }
 
         private void btnStart_Click(object sender, EventArgs e) {
-            try {
-                int roomID = int.Parse(listBoxRoom.SelectedItem.ToString());
-                int playerColor = cbPlayerColor.SelectedIndex + 1;
-                MainForm m = new MainForm(roomID, playerColor);
+            int roomID = int.Parse(listBoxRoom.SelectedItem.ToString());
+            int playerColor = cbPlayerColor.SelectedIndex + 1;
+            if (cbGameMode.SelectedIndex == 0) {
+                try {
+                    MainForm m = new MainForm(roomID, playerColor, 0);
+                    m.FormClosing += show_Form;
+                    m.Show();
+                    this.Hide();
+                } catch (SocketException) {
+                    MessageBox.Show("服务器连接拒绝");
+                }
+            } else {
+                MainForm m = new MainForm(0, playerColor, 1);
                 m.FormClosing += show_Form;
                 m.Show();
                 this.Hide();
-            } catch (SocketException) {
-                MessageBox.Show("服务器连接拒绝");
             }
         }
 

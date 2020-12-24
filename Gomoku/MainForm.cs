@@ -10,23 +10,26 @@ using System.Windows.Forms;
 
 namespace Gomoku {
     public partial class MainForm : Form {
-        private PlayerOnline player;
+        private Player player;
 
-        public MainForm(int roomID, int playerColor) {
+        public MainForm(int roomID, int playerColor, int gameMode) {
             InitializeComponent();
             btnStartGame.Enabled = false;
-            player = new PlayerOnline(roomID, playerColor, board);
-            player.OnGameOver += board_OnGameEnd;
-            pBoxColor.SizeMode = PictureBoxSizeMode.Zoom;
             labelRoomID.Text = "房间号:  " + roomID.ToString() + "  你的棋子";
+            pBoxColor.SizeMode = PictureBoxSizeMode.Zoom;
             if (playerColor == 1) {
                 pBoxColor.Image = Gomoku.Properties.Resources.blackChess;
-            } else if (playerColor == 2){
+            } else if (playerColor == 2) {
                 pBoxColor.Image = Gomoku.Properties.Resources.whiteChess;
-            } else {
+            } else if (playerColor == 3) {
                 labelRoomID.Text = "房间号:  " + roomID.ToString() + "  你是观众";
             }
-            
+            if (gameMode == 0) {
+                player = new PlayerOnline(roomID, playerColor, board);
+            } else {
+                player = new PlayerLocal(playerColor, board);
+            }
+            player.OnGameOver += board_OnGameEnd;
         }
 
         private void board_OnGameEnd(object sender, GameOverEventArgs e) {

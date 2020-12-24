@@ -6,11 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Gomoku {
-    public class AIPlayer {
-        private int playerColor;
+    public static class AIPlayer {
         private const int boardSize = 15;
-        private int[,] board;
-        private int[,,] gradeMap = new int[2, boardSize, boardSize];
+        private static int[,,] gradeMap = new int[3, boardSize, boardSize];
         //棋型估值
         //活一
         private const int ONE = 10;
@@ -31,13 +29,8 @@ namespace Gomoku {
         //死四
         private const int BLOCKED_FOUR = 10000;
 
-        public AIPlayer(Game game, int playerColor) {
-            this.board = game.Board;
-            this.playerColor = playerColor;
-        }
-
         //test function
-        public Point getAIStep() {
+        public static Point getAIStep(int[,] board) {
             const int INF = 1000000000;
             int max1, max2, x1 = 0, x2 = 0, y1 = 0, y2 = 0;
             max1 = max2 = -INF;
@@ -45,8 +38,8 @@ namespace Gomoku {
                 for (int j = 0; j < boardSize; j++) {
                     if (board[i, j] == 0) {
                         int temp1, temp2;
-                        temp1 = getPointScore(i, j, 1);
-                        temp2 = getPointScore(i, j, 2);
+                        temp1 = getPointScore(i, j, 1, board);
+                        temp2 = getPointScore(i, j, 2, board);
                         if (temp1 > max1) {
                             max1 = temp1;
                             x1 = i;
@@ -67,7 +60,7 @@ namespace Gomoku {
             }
         }
 
-        private int getPointScore(int x, int y, int playerColor) {
+        private static int getPointScore(int x, int y, int playerColor, int[,] board) {
             int ans = 0, num, num1, num2, block, emptyIndex;
             // -
             num = 1;
@@ -294,7 +287,7 @@ namespace Gomoku {
             return ans;
         }
 
-        private int numToScore(int num, int block, int emptyIndex) {
+        private static int numToScore(int num, int block, int emptyIndex) {
             if (emptyIndex <= 0) {
                 if (num >= 5) {
                     return FIVE;
