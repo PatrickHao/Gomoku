@@ -15,13 +15,14 @@ namespace Gomoku {
         private int roomID;
         public event EventHandler<GameOverEventArgs> OnGameOver;
 
-        public PlayerOnline(int roomID, int playerColor, bool playerMode, Board board) : base(playerColor, playerMode, board) {
+        public PlayerOnline(int roomID, int playerColor, Board board) : base(playerColor, board) {
             this.client = new ClientControl();
             this.client.Connect("111.229.219.242", 12321);
-            if (playerMode) {
+            if (playerColor != 3) {
                 this.client.MessageProcess += message_Process1;
             } else {
                 this.client.MessageProcess += message_Process2;
+                state = false;
             }
             this.client.Send(roomID.ToString());
             this.state = playerColor == 1;
@@ -44,7 +45,7 @@ namespace Gomoku {
         }
 
         public override void playerAction(int x, int y) {
-            if (state && !isGameOver && playerMode) {
+            if (state && !isGameOver) {
                 Point p = new Point(0, 0);
                 if (board.getMousePoint(x, y, ref p) && game.isEmpty(p.X, p.Y)) {
                     game.doMove(p.X, p.Y, PlayerColor);

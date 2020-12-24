@@ -14,19 +14,29 @@ namespace Gomoku {
 
         public MainForm(int roomID, int playerColor) {
             InitializeComponent();
-            player = new PlayerOnline(roomID, playerColor, true, board);
+            btnStartGame.Enabled = false;
+            player = new PlayerOnline(roomID, playerColor, board);
             player.OnGameOver += board_OnGameEnd;
             pBoxColor.SizeMode = PictureBoxSizeMode.Zoom;
-            pBoxColor.Image = playerColor == 1 ? Gomoku.Properties.Resources.blackChess : Gomoku.Properties.Resources.whiteChess;
             labelRoomID.Text = "房间号:  " + roomID.ToString() + "  你的棋子";
+            if (playerColor == 1) {
+                pBoxColor.Image = Gomoku.Properties.Resources.blackChess;
+            } else if (playerColor == 2){
+                pBoxColor.Image = Gomoku.Properties.Resources.whiteChess;
+            } else {
+                labelRoomID.Text = "房间号:  " + roomID.ToString() + "  你是观众";
+            }
+            
         }
 
         private void board_OnGameEnd(object sender, GameOverEventArgs e) {
             MessageBox.Show(e.Message, "提示", MessageBoxButtons.OK);
+            btnStartGame.Enabled = true;
         }
 
         private void btnStartGame_Click(object sender, EventArgs e) {
             player.startGame();
+            btnStartGame.Enabled = false;
         }
 
         private void board_MouseClick(object sender, MouseEventArgs e) {

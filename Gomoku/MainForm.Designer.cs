@@ -44,7 +44,7 @@ namespace Gomoku {
             // 
             // pBoxColor
             // 
-            this.pBoxColor.Location = new System.Drawing.Point(506, 12);
+            this.pBoxColor.Location = new System.Drawing.Point(510, 12);
             this.pBoxColor.Name = "pBoxColor";
             this.pBoxColor.Size = new System.Drawing.Size(33, 33);
             this.pBoxColor.TabIndex = 2;
@@ -55,14 +55,13 @@ namespace Gomoku {
             this.labelRoomID.AutoSize = true;
             this.labelRoomID.Location = new System.Drawing.Point(369, 22);
             this.labelRoomID.Name = "labelRoomID";
-            this.labelRoomID.Size = new System.Drawing.Size(29, 12);
+            this.labelRoomID.Size = new System.Drawing.Size(0, 12);
             this.labelRoomID.TabIndex = 3;
-            this.labelRoomID.Text = "NULL";
             // 
             // board
             // 
             this.board.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("board.BackgroundImage")));
-            this.board.Location = new System.Drawing.Point(35, 66);
+            this.board.Location = new System.Drawing.Point(39, 66);
             this.board.Name = "board";
             this.board.Size = new System.Drawing.Size(504, 504);
             this.board.TabIndex = 1;

@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -35,12 +36,16 @@ namespace Gomoku {
         }
 
         private void btnStart_Click(object sender, EventArgs e) {
-            int roomID = int.Parse(listBoxRoom.SelectedItem.ToString());
-            int playerColor = cbPlayerColor.SelectedIndex + 1;
-            MainForm m = new MainForm(roomID, playerColor);
-            m.FormClosing += show_Form;
-            m.Show();
-            this.Hide();
+            try {
+                int roomID = int.Parse(listBoxRoom.SelectedItem.ToString());
+                int playerColor = cbPlayerColor.SelectedIndex + 1;
+                MainForm m = new MainForm(roomID, playerColor);
+                m.FormClosing += show_Form;
+                m.Show();
+                this.Hide();
+            } catch (SocketException) {
+                MessageBox.Show("服务器连接拒绝");
+            }
         }
 
         private void show_Form(object sender, FormClosingEventArgs e) {

@@ -19,15 +19,18 @@ namespace Gomoku {
         public event EventHandler<MessageProcessEventArgs> MessageProcess;
 
         public void Connect(string ip, int port) {
-            try {
-                clientSocket.Connect(ip, port);
-                Thread threadReceive = new Thread(Receive);
-                threadReceive.IsBackground = true;
-                threadReceive.Start();
-            } catch {
-                MessageBox.Show("无法连接服务器");
-            }
-            
+            //try {
+            //    clientSocket.Connect(ip, port);
+            //    Thread threadReceive = new Thread(Receive);
+            //    threadReceive.IsBackground = true;
+            //    threadReceive.Start();
+            //} catch {
+            //    MessageBox.Show("无法连接服务器");
+            //}
+            clientSocket.Connect(ip, port);
+            Thread threadReceive = new Thread(Receive);
+            threadReceive.IsBackground = true;
+            threadReceive.Start();
 
         }
         public void Receive() {
