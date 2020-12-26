@@ -14,6 +14,7 @@ namespace Gomoku {
 
         public MainForm(int roomID, int playerColor, int gameMode) {
             InitializeComponent();
+            CheckForIllegalCrossThreadCalls = false;
             btnStartGame.Enabled = false;
             labelRoomID.Text = "房间号:  " + roomID.ToString() + "  你的棋子";
             pBoxColor.SizeMode = PictureBoxSizeMode.Zoom;

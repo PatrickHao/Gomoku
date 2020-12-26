@@ -31,8 +31,8 @@ namespace Gomoku {
             Thread threadReceive = new Thread(Receive);
             threadReceive.IsBackground = true;
             threadReceive.Start();
-
         }
+
         public void Receive() {
             try {
                 byte[] msg = new byte[1024];
