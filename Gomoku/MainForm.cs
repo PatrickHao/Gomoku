@@ -47,5 +47,9 @@ namespace Gomoku {
                 player.playerAction(e.X, e.Y);
             }
         }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
+            player.leaveRoom();
+        }
     }
 }

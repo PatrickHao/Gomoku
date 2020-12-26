@@ -79,6 +79,7 @@ namespace Gomoku {
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "MainForm";
             this.Text = "MainForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.pBoxColor)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -26,6 +26,7 @@ namespace Gomoku {
             this.client.Send(roomID.ToString());
             this.state = playerColor == 1;
             this.RoomID = roomID;
+            RedisHelper.updateRoomInfo(RoomID, PlayerColor, 0);
         }
 
         public int RoomID { get => roomID; set => roomID = value; }
@@ -70,6 +71,10 @@ namespace Gomoku {
         public override void startGame() {
             game.initBoard();
             board.initBoard();
+        }
+
+        public override void leaveRoom() {
+            RedisHelper.updateRoomInfo(RoomID, PlayerColor, 1);
         }
     }
 }

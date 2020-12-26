@@ -11,7 +11,6 @@ namespace GomoServer {
 
         private List<Client> clientList;
 
-
         public ServerControl() {
             serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             clientList = new List<Client>();
@@ -21,26 +20,21 @@ namespace GomoServer {
             serverSocket.Bind(new IPEndPoint(IPAddress.Any, 12321));
             serverSocket.Listen(10);
             Console.WriteLine("Server Started Successful");
-
             Thread threadAccpt = new Thread(Accept);
             threadAccpt.IsBackground = true;
             threadAccpt.Start();
-
         }
 
         private void Accept() {
             Socket clientSocket = serverSocket.Accept();
             IPEndPoint point = clientSocket.RemoteEndPoint as IPEndPoint;
-            Console.WriteLine(point.Address + "[" + point.Port + "] connected");
-
+            //Console.WriteLine(point.Address + "[" + point.Port + "] connected");
             Client client = new Client(-1, clientSocket);
-
             clientList.Add(client);
             Thread threadReceive = new Thread(ReceiveRoomNum);
             threadReceive.IsBackground = true;
             threadReceive.Start(client);
             Accept();
-
         }
 
         private void ReceiveRoomNum(Object obj) {
@@ -53,10 +47,9 @@ namespace GomoServer {
                 //Console.WriteLine(point.Address + "[" + point.Port + "]:" + msgStr);
                 //设置roomNum
                 client.RoomNum = Convert.ToInt32(msgStr);
-
                 Receive(client);
             } catch {
-                Console.WriteLine(point.Address + "[" + point.Port + "] disconnected");
+                //Console.WriteLine(point.Address + "[" + point.Port + "] disconnected");
                 clientList.Remove(client);
             }
 
@@ -69,15 +62,14 @@ namespace GomoServer {
                 byte[] msg = new byte[1024];
                 int msgLen = client.Socket.Receive(msg);
                 string msgStr = Encoding.UTF8.GetString(msg, 0, msgLen);
-                Console.WriteLine(point.Address + "[" + point.Port + "]:" + msgStr);
+                //Console.WriteLine(point.Address + "[" + point.Port + "]:" + msgStr);
                 //广播给另一个player
                 Broadcast(client, msgStr);
                 Receive(client);
             } catch {
-                Console.WriteLine(point.Address + "[" + point.Port + "]  disconnected");
+                //Console.WriteLine(point.Address + "[" + point.Port + "] disconnected");
                 clientList.Remove(client);
             }
-
         }
 
         private void Broadcast(Client clientOther, string msg) {
@@ -89,7 +81,6 @@ namespace GomoServer {
                 }
                 //client.Send(Encoding.UTF8.GetBytes(msg));
             }
-
         }
     }
 }
