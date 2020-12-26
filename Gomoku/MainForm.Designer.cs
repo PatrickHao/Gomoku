@@ -34,7 +34,7 @@ namespace Gomoku {
             // 
             // btnStartGame
             // 
-            this.btnStartGame.Location = new System.Drawing.Point(12, 12);
+            this.btnStartGame.Location = new System.Drawing.Point(15, 23);
             this.btnStartGame.Name = "btnStartGame";
             this.btnStartGame.Size = new System.Drawing.Size(80, 32);
             this.btnStartGame.TabIndex = 0;
@@ -44,7 +44,7 @@ namespace Gomoku {
             // 
             // pBoxColor
             // 
-            this.pBoxColor.Location = new System.Drawing.Point(510, 12);
+            this.pBoxColor.Location = new System.Drawing.Point(486, 23);
             this.pBoxColor.Name = "pBoxColor";
             this.pBoxColor.Size = new System.Drawing.Size(33, 33);
             this.pBoxColor.TabIndex = 2;
@@ -53,7 +53,7 @@ namespace Gomoku {
             // labelRoomID
             // 
             this.labelRoomID.AutoSize = true;
-            this.labelRoomID.Location = new System.Drawing.Point(369, 22);
+            this.labelRoomID.Location = new System.Drawing.Point(344, 33);
             this.labelRoomID.Name = "labelRoomID";
             this.labelRoomID.Size = new System.Drawing.Size(0, 12);
             this.labelRoomID.TabIndex = 3;
@@ -61,20 +61,20 @@ namespace Gomoku {
             // board
             // 
             this.board.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("board.BackgroundImage")));
-            this.board.Location = new System.Drawing.Point(39, 66);
+            this.board.Location = new System.Drawing.Point(15, 84);
             this.board.Name = "board";
             this.board.Size = new System.Drawing.Size(504, 504);
-            this.board.TabIndex = 1;
+            this.board.TabIndex = 4;
             this.board.MouseClick += new System.Windows.Forms.MouseEventHandler(this.board_MouseClick);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(584, 611);
+            this.ClientSize = new System.Drawing.Size(534, 600);
+            this.Controls.Add(this.board);
             this.Controls.Add(this.labelRoomID);
             this.Controls.Add(this.pBoxColor);
-            this.Controls.Add(this.board);
             this.Controls.Add(this.btnStartGame);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "MainForm";
@@ -89,9 +89,9 @@ namespace Gomoku {
         #endregion
 
         private System.Windows.Forms.Button btnStartGame;
-        private Board board;
         private System.Windows.Forms.PictureBox pBoxColor;
         private System.Windows.Forms.Label labelRoomID;
+        private Board board;
     }
 }
 

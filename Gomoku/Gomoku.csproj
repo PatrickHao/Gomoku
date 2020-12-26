@@ -111,6 +111,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RedisHelper.cs" />
+    <Compile Include="RoomIDExistException.cs" />
     <Compile Include="RoomInfo.cs" />
     <Compile Include="StartForm.cs">
       <SubType>Form</SubType>
@@ -153,6 +154,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\whiteChess.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\welcomePage.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

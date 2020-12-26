@@ -24,11 +24,12 @@ namespace Gomoku {
             } else if (playerColor == 3) {
                 labelRoomID.Text = "房间号:  " + roomID.ToString() + "  你是观众";
             }
-            if (gameMode == 0) {
-                player = new PlayerOnline(roomID, playerColor, board);
-            } else {
-                player = new PlayerLocal(playerColor, board);
-            }
+            //if (gameMode == 0) {
+            //    player = new PlayerOnline(roomID, playerColor, board);
+            //} else {
+            //    player = new PlayerLocal(playerColor, board);
+            //}
+            player = new PlayerOnline(roomID, playerColor, board);
             player.OnGameOver += board_OnGameEnd;
         }
 

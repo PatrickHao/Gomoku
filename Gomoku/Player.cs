@@ -31,6 +31,6 @@ namespace Gomoku {
 
         public abstract void startGame();
 
-        public virtual void leaveRoom() {}
+        public virtual void leaveRoom(){}
     }
 }

@@ -50,6 +50,5 @@ namespace Gomoku {
         public void Send(string msg) {
             clientSocket.Send(Encoding.UTF8.GetBytes(msg));
         }
-
     }
 }

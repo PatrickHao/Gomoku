@@ -32,6 +32,7 @@ namespace Gomoku {
         public int RoomID { get => roomID; set => roomID = value; }
 
         private void message_Process1(object sender, MessageProcessEventArgs e) {
+            game.doMove(e.Message.Point.X, e.Message.Point.Y, e.Message.PlayerColor);
             board.drawChess(e.Message.Point.X, e.Message.Point.Y, 3 - PlayerColor);
             if (e.Message.IsGameOver) {
                 gameOver(e.Message.PlayerColor);
@@ -41,6 +42,7 @@ namespace Gomoku {
         }
 
         private void message_Process2(object sender, MessageProcessEventArgs e) {
+            game.doMove(e.Message.Point.X, e.Message.Point.Y, e.Message.PlayerColor);
             board.drawChess(e.Message.Point.X, e.Message.Point.Y, e.Message.PlayerColor);
             if (e.Message.IsGameOver) {
                 gameOver(e.Message.PlayerColor);

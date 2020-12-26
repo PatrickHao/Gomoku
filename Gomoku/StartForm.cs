@@ -34,9 +34,14 @@ namespace Gomoku {
         private void btnRoomAdd_Click(object sender, EventArgs e) {
             try {
                 RoomInfo roomInfo = new RoomInfo(int.Parse(tbRoomID.Text), 0, 0, 0);
+                if (RedisHelper.judgeRoomID(roomInfo.RoomID)) {
+                    throw new RoomIDExistException();
+                }
                 RedisHelper.addRoomInfo(roomInfo);
-            } catch {
+            } catch (FormatException) {
                 MessageBox.Show("房间号需为数字");
+            } catch (RoomIDExistException err) {
+                MessageBox.Show(err.ToString());
             }
             refreshList();
         }
@@ -45,7 +50,7 @@ namespace Gomoku {
             try {
                 int roomID = int.Parse(listBoxRoom.SelectedItem.ToString());
                 int playerColor = cbPlayerColor.SelectedIndex + 1;
-                if (!RedisHelper.judge(roomID, playerColor)) {
+                if (!RedisHelper.judgeCurPlayer(roomID, playerColor)) {
                     throw new PlayerNumberException();
                 }
                 MainForm m = new MainForm(roomID, playerColor, 0);

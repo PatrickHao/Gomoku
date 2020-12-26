@@ -66,7 +66,7 @@ namespace Gomoku {
             }
         }
 
-        public static bool judge(int roomID, int playerColor) {
+        public static bool judgeCurPlayer(int roomID, int playerColor) {
             RedisValue roomInfoValue = db.HashGet(new RedisKey("room"), new RedisValue(roomID.ToString()));
             RoomInfo roomInfo = (RoomInfo)JsonConvert.DeserializeObject(roomInfoValue.ToString(), typeof(RoomInfo));
             switch (playerColor) {
@@ -77,6 +77,10 @@ namespace Gomoku {
                 default:
                     return true;
             }
+        }
+
+        public static bool judgeRoomID(int roomID) {
+            return db.HashExists(new RedisKey("room"), new RedisValue(roomID.ToString()));
         }
 
         public static List<RoomInfo> getRoomList() {
