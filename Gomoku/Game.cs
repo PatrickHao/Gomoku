@@ -12,11 +12,6 @@ namespace Gomoku {
     public class Game {
         private const int boardSize = 15;
         private int[,] board = new int[boardSize, boardSize];
-        //棋子计数
-        private int hSum;
-        private int vSum;
-        private int lSum;
-        private int rSum;
 
         public int[,] Board { get => board; }
 
@@ -37,10 +32,12 @@ namespace Gomoku {
         }
 
         public bool isGameOver(int x, int y, int playerColor) {
+            //棋子计数
+            int hSum, vSum, lSum, rSum;
+            hSum = vSum = lSum = rSum = 1;
             int i, j;
             i = x - 1;
             j = y - 1;
-            hSum = vSum = lSum = rSum = 1;
             while (i >= 0 && j >= 0) {
                 if (Board[i, j] == playerColor) {
                     lSum++;
@@ -124,9 +121,9 @@ namespace Gomoku {
 
         public void doMove(int x, int y, int playerColor) {
             Board[x, y] = playerColor;
-            if (isGameOver(x, y, playerColor)) {
-                // to Process
-            }
+            //if (isGameOver(x, y, playerColor)) {
+            //    // to Process
+            //}
         }
     }
 }

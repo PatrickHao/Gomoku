@@ -42,6 +42,7 @@ namespace Gomoku {
                 for (int j = 0; j < boardSize; j++) {
                     if (board[i, j] == 0) {
                         int temp1, temp2;
+                        //进行两次搜索取最高得分对应的点
                         temp1 = getPointScore(i, j, 1, board);
                         temp2 = getPointScore(i, j, 2, board);
                         if (temp1 > max1) {

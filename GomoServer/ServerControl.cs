@@ -31,13 +31,13 @@ namespace GomoServer {
             //Console.WriteLine(point.Address + "[" + point.Port + "] connected");
             Client client = new Client(-1, clientSocket);
             clientList.Add(client);
-            Thread threadReceive = new Thread(ReceiveRoomNum);
+            Thread threadReceive = new Thread(ReceiveRoomID);
             threadReceive.IsBackground = true;
             threadReceive.Start(client);
             Accept();
         }
 
-        private void ReceiveRoomNum(Object obj) {
+        private void ReceiveRoomID(Object obj) {
             Client client = obj as Client;
             IPEndPoint point = client.Socket.RemoteEndPoint as IPEndPoint;
             try {
@@ -45,8 +45,8 @@ namespace GomoServer {
                 int msgLen = client.Socket.Receive(msg);
                 string msgStr = Encoding.UTF8.GetString(msg, 0, msgLen);
                 //Console.WriteLine(point.Address + "[" + point.Port + "]:" + msgStr);
-                //设置roomNum
-                client.RoomNum = Convert.ToInt32(msgStr);
+                //设置roomID
+                client.RoomID = Convert.ToInt32(msgStr);
                 Receive(client);
             } catch {
                 //Console.WriteLine(point.Address + "[" + point.Port + "] disconnected");
@@ -74,7 +74,7 @@ namespace GomoServer {
 
         private void Broadcast(Client clientOther, string msg) {
             foreach (var client in clientList) {
-                if (client == clientOther || client.RoomNum != clientOther.RoomNum) {
+                if (client == clientOther || client.RoomID != clientOther.RoomID) {
 
                 } else {
                     client.Socket.Send(Encoding.UTF8.GetBytes(msg));

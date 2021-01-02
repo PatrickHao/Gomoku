@@ -9,13 +9,13 @@ namespace GomoServer {
     class Client {
         private Socket socket;
 
-        private int roomNum;
+        private int roomID;
 
         public Socket Socket { get => socket; set => socket = value; }
-        public int RoomNum { get => roomNum; set => roomNum = value; }
+        public int RoomID { get => roomID; set => roomID = value; }
 
-        public Client(int roomNum, Socket socket) {
-            this.roomNum = roomNum;
+        public Client(int roomID, Socket socket) {
+            this.roomID = roomID;
             this.socket = socket;
         }
     }

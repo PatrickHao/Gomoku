@@ -34,7 +34,8 @@ namespace Gomoku {
 
         private void message_Process1(object sender, MessageProcessEventArgs e) {
             game.doMove(e.Message.Point.X, e.Message.Point.Y, e.Message.PlayerColor);
-            board.drawChess(e.Message.Point.X, e.Message.Point.Y, 3 - PlayerColor);
+            board.drawChess(e.Message.Point.X, e.Message.Point.Y, e.Message.PlayerColor);
+            //游戏是否结束
             if (e.Message.IsGameOver) {
                 gameOver(e.Message.PlayerColor);
                 isGameOver = true;
@@ -54,16 +55,22 @@ namespace Gomoku {
         public override void playerAction(int x, int y) {
             if (state && !isGameOver) {
                 Point p = new Point(0, 0);
+                //当前位置为空
                 if (board.getMousePoint(x, y, ref p) && game.isEmpty(p.X, p.Y)) {
+                    //走棋
                     game.doMove(p.X, p.Y, PlayerColor);
                     board.drawChess(p.X, p.Y, PlayerColor);
+                    //判断是否结束
                     if (game.isGameOver(p.X, p.Y, PlayerColor)) {
                         isGameOver = true;
                     }
+                    //发送当前数据
                     Message message = new Message(PlayerColor, p, isGameOver);
                     string messageStr = JsonConvert.SerializeObject(message);
                     client.Send(messageStr);
+                    //关闭走棋权限
                     state = false;
+                    //触发游戏结束方法
                     if (isGameOver) {
                         gameOver(PlayerColor);
                     }

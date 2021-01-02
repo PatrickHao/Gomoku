@@ -52,6 +52,7 @@ namespace Gomoku {
             Graphics g = Graphics.FromImage(bm);
             g.FillRectangle(Brushes.BurlyWood, new Rectangle(0, 0, controllerSize, controllerSize));
             Pen pen = new Pen(Color.Black, 1);
+            //根据棋盘尺寸画出相应数量的直线
             for (int i = 0; i < boardSize; i++) {
                 Point hPointStart = indexToReal(0, i);
                 Point hPointEnd = indexToReal(boardSize - 1, i);
@@ -68,6 +69,7 @@ namespace Gomoku {
             Point boardPoint = indexToReal(x, y);
             Bitmap bm = playerColor == 1 ? blackChess : whiteChess;
             Graphics g = Graphics.FromImage(this.BackgroundImage);
+            //计算出棋子实际绘制位置
             boardPoint.X -= chessSize / 2;
             boardPoint.Y -= chessSize / 2;
             g.DrawImage(bm, boardPoint.X, boardPoint.Y, chessSize, chessSize);

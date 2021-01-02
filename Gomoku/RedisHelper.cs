@@ -87,8 +87,10 @@ namespace Gomoku {
 
         public static List<RoomInfo> getRoomList() {
             List<RoomInfo> roomInfoList = new List<RoomInfo>();
+            //查询
             HashEntry[] entryList = db.HashGetAll(new RedisKey("room"));
             foreach (HashEntry entry in entryList) {
+                //将Json转换为RoomInfo类型实例存储在roomInfoList中
                 RoomInfo roomInfo = (RoomInfo)JsonConvert.DeserializeObject(entry.Value.ToString(), typeof(RoomInfo));
                 roomInfoList.Add(roomInfo);
             }
