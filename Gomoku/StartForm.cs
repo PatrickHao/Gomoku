@@ -48,14 +48,21 @@ namespace Gomoku {
 
         private void btnStart_Click(object sender, EventArgs e) {
             try {
-                int roomID = int.Parse(listBoxRoom.SelectedItem.ToString());
-                int playerColor = cbPlayerColor.SelectedIndex + 1;
-                if (!RedisHelper.judgeCurPlayer(roomID, playerColor)) {
-                    throw new PlayerNumberException();
+                int playerMode = cbGameMode.SelectedIndex;
+                if (playerMode == 0) {
+                    int roomID = int.Parse(listBoxRoom.SelectedItem.ToString());
+                    int playerColor = cbPlayerColor.SelectedIndex + 1;
+                    if (!RedisHelper.judgeCurPlayer(roomID, playerColor)) {
+                        throw new PlayerNumberException();
+                    }
+                    MainForm m = new MainForm(roomID, playerColor, 0);
+                    m.FormClosing += show_Form;
+                    m.Show();
+                } else {
+                    MainForm m = new MainForm(1, 1, 1);
+                    m.FormClosing += show_Form;
+                    m.Show();
                 }
-                MainForm m = new MainForm(roomID, playerColor, 0);
-                m.FormClosing += show_Form;
-                m.Show();
                 this.Hide();
             } catch (NullReferenceException) {
                 MessageBox.Show("请选择或创建房间");
@@ -64,8 +71,6 @@ namespace Gomoku {
             } catch (PlayerNumberException err) {
                 MessageBox.Show(err.ToString());
             }
-            //人机窗口--待开发
-            //MainForm m = new MainForm(0, playerColor, 1);
         }
 
         private void show_Form(object sender, FormClosingEventArgs e) {

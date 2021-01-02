@@ -9,8 +9,10 @@ using System.Threading.Tasks;
 namespace Gomoku {
 
     public class RedisHelper {
-        private static ConnectionMultiplexer redis = ConnectionMultiplexer.Connect("112.125.88.163:6379");
+        private static ConnectionMultiplexer redis = ConnectionMultiplexer.Connect("111.229.219.242:6379");
         private static IDatabase db = redis.GetDatabase();
+
+        private RedisHelper() {}
 
         public static void addRoomInfo(RoomInfo roomInfo) {
             string roomInfoStr = JsonConvert.SerializeObject(roomInfo);

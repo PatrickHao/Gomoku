@@ -17,6 +17,7 @@ namespace Gomoku {
         public PlayerOnline(int roomID, int playerColor, Board board) : base(playerColor, board) {
             this.client = new ClientControl();
             this.client.Connect("111.229.219.242", 12321);
+            //this.client.Connect("127.0.0.1", 12321);
             if (playerColor != 3) {
                 this.client.MessageProcess += message_Process1;
             } else {
@@ -24,9 +25,9 @@ namespace Gomoku {
                 state = false;
             }
             this.client.Send(roomID.ToString());
-            this.state = playerColor == 1;
             this.RoomID = roomID;
             RedisHelper.updateRoomInfo(RoomID, PlayerColor, 0);
+            startGame();
         }
 
         public int RoomID { get => roomID; set => roomID = value; }
@@ -73,6 +74,8 @@ namespace Gomoku {
         public override void startGame() {
             game.initBoard();
             board.initBoard();
+            state = PlayerColor == 1;
+            isGameOver = false;
         }
 
         public override void leaveRoom() {

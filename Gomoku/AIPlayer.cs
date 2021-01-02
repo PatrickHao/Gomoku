@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Gomoku {
-    public static class AIPlayer {
+    public class AIPlayer {
         private const int boardSize = 15;
-        private static int[,,] gradeMap = new int[3, boardSize, boardSize];
+        private int[,,,] gradeMap;
         //棋型估值
         //活一
         private const int ONE = 10;
@@ -29,8 +29,12 @@ namespace Gomoku {
         //死四
         private const int BLOCKED_FOUR = 10000;
 
+        public AIPlayer() {
+            startGame();
+        }
+
         //test function
-        public static Point getAIStep(int[,] board) {
+        public Point getAIStep(int[,] board) {
             const int INF = 1000000000;
             int max1, max2, x1 = 0, x2 = 0, y1 = 0, y2 = 0;
             max1 = max2 = -INF;
@@ -60,7 +64,11 @@ namespace Gomoku {
             }
         }
 
-        private static int getPointScore(int x, int y, int playerColor, int[,] board) {
+        public void startGame() {
+            gradeMap = new int[2, 3, boardSize, boardSize];
+        }
+
+        private int getPointScore(int x, int y, int playerColor, int[,] board) {
             int ans = 0, num, num1, num2, block, emptyIndex;
             // -
             num = 1;
@@ -95,7 +103,7 @@ namespace Gomoku {
                 }
                 int temp = board[x, i];
                 if (temp == 0) {
-                    if (emptyIndex == -1 && i < boardSize - 1 && board[x, i - 1] == playerColor) {
+                    if (emptyIndex == -1 && i > 0 && board[x, i - 1] == playerColor) {
                         emptyIndex = 0;
                         continue;
                     } else {
@@ -114,8 +122,8 @@ namespace Gomoku {
                 }
             }
             num = num1 + num2;
-            gradeMap[playerColor, x, y] += numToScore(num, block, emptyIndex);
-            ans += gradeMap[playerColor, x, y];
+            gradeMap[playerColor - 1, playerColor, x, y] += numToScore(num, block, emptyIndex);
+            ans += gradeMap[playerColor - 1, playerColor, x, y];
             // |
             num = 1;
             num1 = num2 = block = 0;
@@ -127,7 +135,7 @@ namespace Gomoku {
                 }
                 int temp = board[i, y];
                 if (temp == 0) {
-                    if (emptyIndex == -1 && i < boardSize - 1 && board[i + 1, y] == playerColor) {
+                    if (emptyIndex == -1 && i < boardSize - 1 && i < boardSize - 1 && board[i + 1, y] == playerColor) {
                         emptyIndex = num1;
                         continue;
                     } else {
@@ -150,7 +158,7 @@ namespace Gomoku {
                 }
                 int temp = board[i, y];
                 if (temp == 0) {
-                    if (emptyIndex == -1 && i < boardSize - 1 && board[i - 1, y] == playerColor) {
+                    if (emptyIndex == -1 && i > 0 && board[i - 1, y] == playerColor) {
                         emptyIndex = 0;
                         continue;
                     } else {
@@ -169,8 +177,8 @@ namespace Gomoku {
                 }
             }
             num = num1 + num2;
-            gradeMap[playerColor, x, y] += numToScore(num, block, emptyIndex);
-            ans += gradeMap[playerColor, x, y];
+            gradeMap[playerColor - 1, playerColor, x, y] += numToScore(num, block, emptyIndex);
+            ans += gradeMap[playerColor - 1, playerColor, x, y];
             // \
             num = 1;
             num1 = num2 = block = 0;
@@ -225,15 +233,15 @@ namespace Gomoku {
                 }
             }
             num = num1 + num2;
-            gradeMap[playerColor, x, y] += numToScore(num, block, emptyIndex);
-            ans += gradeMap[playerColor, x, y];
+            gradeMap[playerColor - 1, playerColor, x, y] += numToScore(num, block, emptyIndex);
+            ans += gradeMap[playerColor - 1, playerColor, x, y];
             // /
             num = 1;
             num1 = num2 = block = 0;
             emptyIndex = -1;
             for (int delta = 1; true; delta++) {
                 int i = x + delta, j = y - delta;
-                if (i < 0 || j < 0 || x >= boardSize || y >= boardSize) {
+                if (i < 0 || j < 0 || i >= boardSize || j >= boardSize) {
                     block++;
                     break;
                 }
@@ -256,7 +264,7 @@ namespace Gomoku {
             }
             for (int delta = 1; true; delta++) {
                 int i = x - delta, j = y + delta;
-                if (i < 0 || j < 0 || x >= boardSize || y >= boardSize) {
+                if (i < 0 || j < 0 || i >= boardSize || j >= boardSize) {
                     block++;
                     break;
                 }
@@ -281,13 +289,13 @@ namespace Gomoku {
                 }
             }
             num = num1 + num2;
-            gradeMap[playerColor, x, y] += numToScore(num, block, emptyIndex);
-            ans += gradeMap[playerColor, x, y];
+            gradeMap[playerColor - 1, playerColor, x, y] += numToScore(num, block, emptyIndex);
+            ans += gradeMap[playerColor - 1, playerColor, x, y];
 
             return ans;
         }
 
-        private static int numToScore(int num, int block, int emptyIndex) {
+        private int numToScore(int num, int block, int emptyIndex) {
             if (emptyIndex <= 0) {
                 if (num >= 5) {
                     return FIVE;
