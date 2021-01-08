@@ -58,11 +58,7 @@ namespace Gomoku {
                     }
                 }
             }
-            if (max1 != max2) {
-                return max1 > max2 ? new Point(x1, y1) : new Point(x2, y2);
-            } else {
-                return new Point(x1, y2);
-            }
+            return max1 > max2 ? new Point(x1, y1) : new Point(x2, y2);
         }
 
         public void startGame() {

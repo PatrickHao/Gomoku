@@ -16,6 +16,7 @@ namespace Gomoku {
 
         public PlayerOnline(int roomID, int playerColor, Board board) : base(playerColor, board) {
             this.client = new ClientControl();
+            //连接服务器
             this.client.Connect("111.229.219.242", 12321);
             //this.client.Connect("127.0.0.1", 12321);
             if (playerColor != 3) {
